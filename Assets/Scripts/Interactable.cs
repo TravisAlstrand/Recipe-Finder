@@ -1,3 +1,4 @@
+using SojaExiles;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -5,6 +6,9 @@ public class Interactable : MonoBehaviour
     [SerializeField] private string incorrectText;
     [SerializeField] private string correctText;
     [SerializeField] private int associatedRiddle = 0;
+    [SerializeField] private bool isKey = false;
+    [SerializeField] private opencloseDoor lockedDoor;
+    [SerializeField] private bool isRecipe = false;
     
     private GameManager _gameManager;
 
@@ -28,6 +32,15 @@ public class Interactable : MonoBehaviour
         else
         {
             _gameManager.ShowItemInspectionText(correctText, true);
+            if (isKey)
+            {
+                lockedDoor.locked = false;
+            }
+
+            if (isKey || isRecipe)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

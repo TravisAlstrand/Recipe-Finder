@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float itemTimeToWait = 5.0f;
     [SerializeField] private string[] riddles;
 
-    private int _currentRiddle = 1;
+    private int _currentRiddle = 9;
 
     private FirstPersonController _playerController;
 

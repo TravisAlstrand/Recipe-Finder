@@ -10,8 +10,10 @@ namespace SojaExiles
 
 		public Animator openandclose;
 		public bool open;
+		public bool locked;
 		public Transform Player;
-
+		private readonly float _maxInteractDistance = 5f;
+		
 		void Start()
 		{
 			open = false;
@@ -19,11 +21,12 @@ namespace SojaExiles
 
 		void OnMouseOver()
 		{
+			if (Player)
 			{
-				if (Player)
+				if (!locked)
 				{
 					float dist = Vector3.Distance(Player.position, transform.position);
-					if (dist < 15)
+					if (dist <= _maxInteractDistance)
 					{
 						if (open == false)
 						{
@@ -46,14 +49,16 @@ namespace SojaExiles
 
 					}
 				}
-
+				else
+				{
+					// display locked text
+				}
 			}
-
 		}
 
 		IEnumerator opening()
 		{
-			print("you are opening the door");
+			// print("you are opening the door");
 			openandclose.Play("Opening");
 			open = true;
 			yield return new WaitForSeconds(.5f);
@@ -61,7 +66,7 @@ namespace SojaExiles
 
 		IEnumerator closing()
 		{
-			print("you are closing the door");
+			// print("you are closing the door");
 			openandclose.Play("Closing");
 			open = false;
 			yield return new WaitForSeconds(.5f);
