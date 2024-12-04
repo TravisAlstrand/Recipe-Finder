@@ -136,6 +136,8 @@ public class FirstPersonController : MonoBehaviour
     #endregion
 
     private readonly float _maxInteractDistance = 3.5f;
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip sfx;
 
     private void Awake()
     {
@@ -379,6 +381,8 @@ public class FirstPersonController : MonoBehaviour
                 if (Input.GetMouseButtonDown(0)) // Left mouse button
                 {
                     interactable.Interact();
+                    sfxSource.resource = sfx;
+                    sfxSource.Play();
                 }
             }
             else

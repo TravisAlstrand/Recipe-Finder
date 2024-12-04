@@ -12,17 +12,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float itemTimeToWait = 5.0f;
     [SerializeField] private string[] riddles;
 
-    private int _currentRiddle = 9;
+    private int _currentRiddle = 1;
 
     private FirstPersonController _playerController;
+    private SceneLoader _sceneLoader;
+    private CursorManager _cursorManager;
 
     private void Awake()
     {
         _playerController = FindFirstObjectByType<FirstPersonController>();
+        _sceneLoader = FindFirstObjectByType<SceneLoader>();
+        _cursorManager = FindFirstObjectByType<CursorManager>();
     }
 
     private void Start()
     {
+        _cursorManager.LockCursor();     
         SetNewRiddle(riddles[_currentRiddle]);
     }
 
@@ -74,6 +79,9 @@ public class GameManager : MonoBehaviour
         {
             _currentRiddle++;
             SetNewRiddle(riddles[_currentRiddle]);
+        } else if (wasCorrect && _currentRiddle == riddles.Length - 1)
+        {
+            _sceneLoader.LoadMenu();
         }
     }
 }
